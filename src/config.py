@@ -3,6 +3,11 @@ import os
 # Diretório base dos assets
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), 'assets')
 
+# Configurações do Ranking
+DB_PATH = os.path.join(os.path.dirname(__file__), 'ranking.db')
+MAX_RANKING_ENTRIES = 10
+MAX_NAME_LENGTH = 10
+
 # Dimensões da Tela
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -24,6 +29,7 @@ BACKGROUND_IMAGE = os.path.join(ASSETS_DIR, 'background.png')
 # Configurações do Jogador
 PLAYER_SPEED = 5
 PLAYER_SIZE = (50, 40) # Largura, Altura
+PLAYER_LIVES = 3  # Vidas iniciais
 
 # Configurações do Inimigo
 ENEMY_SPEED = 3
