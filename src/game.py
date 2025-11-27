@@ -1,6 +1,6 @@
 import pygame
 import random
-import os  # Novo! Necessário para achar os arquivos
+import os
 from src.config import *
 from src.entities.player import Player
 from src.entities.enemy import Enemy
@@ -45,6 +45,14 @@ class Game:
             self.sfx_shoot = None
             self.sfx_explosion = None
 
+        # Carrega a imagem de background
+        try:
+            self.background = pygame.image.load(BACKGROUND_IMAGE).convert()
+            self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        except Exception as e:
+            print(f"Erro ao carregar background: {e}")
+            self.background = None
+
         self.init_game_objects()
 
     def init_game_objects(self):
@@ -67,7 +75,6 @@ class Game:
 
                 elif self.state == 'PLAYING':
                     if event.key == pygame.K_SPACE:
-                        # Toca o som de tiro (Novo!)
                         if self.sfx_shoot: self.sfx_shoot.play()
 
                         new_bullet = Bullet(
@@ -105,7 +112,6 @@ class Game:
         for bullet in self.bullets:
             for enemy in self.enemies:
                 if bullet.rect.colliderect(enemy.rect):
-                    # Toca som de explosão (Novo!)
                     if self.sfx_explosion: self.sfx_explosion.play()
 
                     bullet.destroy()
@@ -116,14 +122,17 @@ class Game:
             if enemy.rect.colliderect(self.player.rect):
                 self.state = 'GAME_OVER'
 
-    # (O resto dos métodos draw e draw_text_centered continuam iguais...)
+
     def draw_text_centered(self, text, font, color, y_offset=0):
         surface = font.render(text, True, color)
         rect = surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + y_offset))
         self.screen.blit(surface, rect)
 
     def draw(self):
-        self.screen.fill(BLACK)
+        if self.background:
+            self.screen.blit(self.background, (0, 0))
+        else:
+            self.screen.fill(BLACK)
         if self.state == 'MENU':
             self.draw_text_centered("DEFENSOR GALÁCTICO", self.font_big, GREEN, -50)
             self.draw_text_centered("Pressione ENTER para Iniciar", self.font, WHITE, 50)

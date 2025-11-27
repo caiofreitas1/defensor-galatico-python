@@ -12,7 +12,7 @@ class Player(Entity):
             y=SCREEN_HEIGHT - 60,
             width=PLAYER_SIZE[0],
             height=PLAYER_SIZE[1],
-            color=GREEN
+            image_path=PLAYER_IMAGE
         )
         self._speed = PLAYER_SPEED
 

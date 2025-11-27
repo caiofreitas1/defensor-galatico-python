@@ -1,3 +1,8 @@
+import os
+
+# Diretório base dos assets
+ASSETS_DIR = os.path.join(os.path.dirname(__file__), 'assets')
+
 # Dimensões da Tela
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -9,6 +14,12 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+
+# Caminhos das Imagens
+PLAYER_IMAGE = os.path.join(ASSETS_DIR, 'player.png')
+ENEMY_IMAGE = os.path.join(ASSETS_DIR, 'enemy.png')
+BULLET_IMAGE = os.path.join(ASSETS_DIR, 'bullet.png')
+BACKGROUND_IMAGE = os.path.join(ASSETS_DIR, 'background.png')
 
 # Configurações do Jogador
 PLAYER_SPEED = 5

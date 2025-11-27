@@ -2,20 +2,27 @@
 import pygame
 from abc import ABC, abstractmethod
 
+
 class Entity(ABC):
     """
     Classe base abstrata para todos os objetos do jogo.
     Demonstra: Classes Abstratas e Encapsulamento.
     """
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, image_path=None):
         # Encapsulamento: Atributos protegidos com _
         self._x = x
         self._y = y
         self._width = width
         self._height = height
-        self._color = color
-        self._rect = pygame.Rect(x, y, width, height)
         self._is_active = True
+
+        if image_path:
+            self._image = pygame.image.load(image_path).convert_alpha()
+            self._image = pygame.transform.scale(self._image, (width, height))
+        else:
+            self._image = None
+        
+        self._rect = pygame.Rect(x, y, width, height)
 
     @property
     def rect(self):
@@ -33,12 +40,10 @@ class Entity(ABC):
 
     @abstractmethod
     def update(self):
-        """
-        Método abstrato. Obriga as classes filhas a implementarem
-        seu próprio comportamento de movimento.
-        """
         pass
 
     def draw(self, surface):
-        """Desenha o objeto na tela."""
-        pygame.draw.rect(surface, self._color, self.rect)
+        if self._image:
+            surface.blit(self._image, (self._x, self._y))
+        else:
+            pygame.draw.rect(surface, (255, 255, 255), self.rect)
