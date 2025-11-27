@@ -198,7 +198,7 @@ class Game:
             # HUD: Score e Vidas
             score_text = self.font.render(f"Score: {self.score}", True, WHITE)
             self.screen.blit(score_text, (10, 10))
-            lives_text = self.font.render(f"Vidas: {'<3 ' * self.lives}", True, RED)
+            lives_text = self.font.render(f"Vidas: {'| ' * self.lives}", True, RED)
             self.screen.blit(lives_text, (SCREEN_WIDTH - 150, 10))
 
         elif self.state == 'ENTER_NAME':
